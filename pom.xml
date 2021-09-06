@@ -4,13 +4,30 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.mryan</groupId>
-    <artifactId>MSpring</artifactId>
+    <groupId>org.mryan</groupId>
+    <artifactId>MSpring-parent</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
+    <modules>
+        <module>M-aop</module>
+        <module>M-aspects</module>
+        <module>M-beans</module>
+        <module>M-context</module>
+        <module>M-core</module>
+        <module>M-expression</module>
+        <module>M-support</module>
+        <module>M-test</module>
+        <module>M-web</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <junit.version>4.13.2</junit.version>
     </properties>
+
+    <dependencies>
+    </dependencies>
 
 </project>
