@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @description：TODO
+ * @description： ResourceLoaderTest
  * @Author MRyan
  * @Date 2021/9/12 23:16
  * @Version 1.0
@@ -19,7 +19,6 @@ public class ResourceLoaderTest {
     @Test
     public void TEST_RESOURCE_LOADER() throws IOException {
         DefaultResourceLoader resourceLoader = new DefaultResourceLoader();
-
         //加载classpath下的资源
         Resource resource = resourceLoader.getResource("classpath:Mpring.txt");
         InputStream inputStream = resource.getInputStream();

@@ -27,10 +27,24 @@ public interface BeanDefinitionRegistry extends AliasRegistry {
     int removeBeanDefinition(String beanName);
 
     /**
+     * 判断是否包含指定名称的BeanDefinition
+     *
+     * @param beanName
+     * @return
+     */
+    boolean containsBeanDefinition(String beanName);
+
+    /**
      * 用于统计BeanDefinition的个数
      *
      * @return BeanDefinition总个数
      */
     int getBeanDefinitionCount();
+
+    /**
+     *
+     * 返回注册表中所有的Bean名称
+     */
+    String[] getBeanDefinitionNames();
 }
 
