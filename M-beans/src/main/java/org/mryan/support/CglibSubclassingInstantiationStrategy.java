@@ -10,7 +10,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 /**
- * @description： CGLIB简单InstantiationStrategy实现
+ * @description： CGLIB简单InstantiationStrategy实现 使用CGLIB动态生成子类
  * @Author MRyan
  * @Date 2021/9/12 13:25
  * @Version 1.0
@@ -19,7 +19,7 @@ public class CglibSubclassingInstantiationStrategy implements InstantiationStrat
 
 
     @Override
-    public Object instantiate(BeanDefinition bd, String beanName,  Constructor<?> ctor, Object... args) throws BeansException {
+    public Object instantiate(BeanDefinition bd, String beanName, Constructor<?> ctor, Object... args) throws BeansException {
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(bd.getBeanClass());
         enhancer.setCallback(new NoOp() {

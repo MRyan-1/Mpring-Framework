@@ -2,6 +2,7 @@ package org.mryan.utils;
 
 import com.sun.istack.internal.Nullable;
 
+
 /**
  * @description： 断言
  * @Author MRyan
@@ -21,4 +22,12 @@ public abstract class Assert {
             throw new IllegalArgumentException(message);
         }
     }
+
+    public static void hasText(@Nullable String text, String message) {
+        if (!StringUtils.hasText(text)) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+
 }

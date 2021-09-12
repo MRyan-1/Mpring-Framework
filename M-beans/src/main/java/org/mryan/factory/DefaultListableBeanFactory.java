@@ -13,8 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Date 2021/9/11 23:45
  * @Version 1.0
  */
-public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory
-        implements BeanDefinitionRegistry, Serializable {
+public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory implements BeanDefinitionRegistry, Serializable {
 
     private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>(512);
 

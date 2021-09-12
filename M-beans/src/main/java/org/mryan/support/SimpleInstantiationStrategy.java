@@ -9,7 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * @description： JDK简单InstantiationStrategy实现
+ * @description： JDK简单InstantiationStrategy实现  使用bean的构造函数来实例化
  * @Author MRyan
  * @Date 2021/9/12 13:01
  * @Version 1.0

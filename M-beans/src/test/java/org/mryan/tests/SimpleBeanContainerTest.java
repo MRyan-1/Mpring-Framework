@@ -3,12 +3,17 @@ package org.mryan.tests;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
 import org.junit.Test;
+import org.mryan.PropertyValue;
+import org.mryan.PropertyValues;
+import org.mryan.beans.UserDao;
 import org.mryan.beans.UserInfoService;
+import org.mryan.beans.UserService;
+import org.mryan.config.RuntimeBeanReference;
 import org.mryan.factory.BeanDefinition;
 import org.mryan.factory.DefaultListableBeanFactory;
 
 /**
- * @description：TODO
+ * @description： feature_simple_bean_container 简单Bean容器实现单元测试
  * @Author MRyan
  * @Date 2021/9/11 22:13
  * @Version 1.0
@@ -50,6 +55,27 @@ public class SimpleBeanContainerTest {
         });
         Object o = enhancer.create(new Class[]{String.class}, new Object[]{"MPring Test"});
         System.out.println(o);
+    }
+
+    /**
+     * 为bean注入bean 测试Bean容器可用性
+     */
+    @Test
+    public void TEST_POPULATE_BEAN_WITH_BEAN() {
+        //1.初始化 BeanFactory
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+        //2. UserDao 注册
+        beanFactory.registerBeanDefinition("userDao", new BeanDefinition(UserDao.class));
+        //3. UserService 设置属性[name、userDao]
+        PropertyValues propertyValues = new PropertyValues();
+        propertyValues.addPropertyValue(new PropertyValue("name", "MPring"));
+        propertyValues.addPropertyValue(new PropertyValue("userDao", new RuntimeBeanReference("userDao")));
+        //4. UserService 注入bean
+        BeanDefinition beanDefinition = new BeanDefinition(UserService.class, propertyValues);
+        beanFactory.registerBeanDefinition("userService", beanDefinition);
+        //5. UserService 获取bean
+        UserService userService = (UserService) beanFactory.getBean("userService");
+        userService.queryUser();
     }
 
 }

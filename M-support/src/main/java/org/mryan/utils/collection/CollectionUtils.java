@@ -1,4 +1,4 @@
-package org.mryan.utils;
+package org.mryan.utils.collection;
 
 import com.sun.istack.internal.Nullable;
 

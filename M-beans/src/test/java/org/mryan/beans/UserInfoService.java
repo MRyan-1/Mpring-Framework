@@ -14,7 +14,6 @@ public class UserInfoService {
         this.userName = userName;
     }
 
-
     public void queryUserInfo() {
         System.out.println("queryUserInfo");
     }
