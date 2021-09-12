@@ -19,10 +19,10 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
     private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>(512);
 
     @Override
-    public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) {
+    public void registerBeanDefinition(String beanName, BeanDefinition bd) {
         Assert.notNull(beanName, "Bean name must not be null");
-        Assert.notNull(beanDefinition, "beanDefinition must not be null");
-        beanDefinitionMap.put(beanName, beanDefinition);
+        Assert.notNull(bd, "beanDefinition must not be null");
+        beanDefinitionMap.put(beanName, bd);
     }
 
     @Override
@@ -38,6 +38,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
         }
         return beanDefinition;
     }
+
 
     @Override
     public int getBeanDefinitionCount() {

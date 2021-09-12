@@ -1,7 +1,6 @@
 package org.mryan.factory;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import org.mryan.BeansException;
 
 /**
  * @description： Bean工厂
@@ -13,14 +12,8 @@ public interface BeanFactory {
 
     String FACTORY_BEAN_PREFIX = "&";
 
-    Object getBean(String beanName);
+    Object getBean(String beanName) throws BeansException;
 
-    <T> T getBean(String name, Class<T> requiredType);
-
-    Object getBean(String name, Object... args);
-
-    <T> T getBean(Class<T> requiredType);
-
-    <T> T getBean(Class<T> requiredType, Object... args);
+    <T> T getBean(String beanName, Object... args) throws BeansException;
 
 }
