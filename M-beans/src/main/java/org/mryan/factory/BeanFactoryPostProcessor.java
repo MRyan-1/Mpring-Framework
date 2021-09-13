@@ -1,5 +1,7 @@
 package org.mryan.factory;
 
+import org.mryan.BeansException;
+
 /**
  * @description： 为MPring提供的容器扩展机制
  * @Author MRyan
@@ -7,7 +9,12 @@ package org.mryan.factory;
  */
 public interface BeanFactoryPostProcessor {
 
-    //在所有的BeanDefinition加载完成后，实例化Bean对象之前，提供修改BeanDefinition属性机制
-
+    /**
+     * 在所有BeanDefintion加载完成后，但在bean实例化之前，提供修改BeanDefinition属性值的机制
+     *
+     * @param beanFactory
+     * @throws BeansException
+     */
+    void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException;
 
 }
