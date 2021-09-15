@@ -1,8 +1,6 @@
 package org.mryan.support;
 
-import org.mryan.BeansException;
 import org.mryan.core.io.DefaultResourceLoader;
-import org.mryan.core.io.Resource;
 import org.mryan.core.io.ResourceLoader;
 import org.mryan.factory.BeanDefinitionRegistry;
 
@@ -12,7 +10,7 @@ import org.mryan.factory.BeanDefinitionRegistry;
  * @Date 2021/9/12 23:35
  * @Version 1.0
  */
-public class AbstractBeanDefinitionReader implements BeanDefinitionReader {
+public abstract class AbstractBeanDefinitionReader implements BeanDefinitionReader {
 
 
     private final BeanDefinitionRegistry registry;
@@ -38,18 +36,4 @@ public class AbstractBeanDefinitionReader implements BeanDefinitionReader {
         return resourceLoader;
     }
 
-    @Override
-    public void loadBeanDefinitions(Resource resource) throws BeansException {
-
-    }
-
-    @Override
-    public void loadBeanDefinitions(Resource... resources) throws BeansException {
-
-    }
-
-    @Override
-    public void loadBeanDefinitions(String location) throws BeansException {
-
-    }
 }

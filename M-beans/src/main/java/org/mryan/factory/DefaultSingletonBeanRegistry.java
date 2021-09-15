@@ -1,8 +1,10 @@
 package org.mryan.factory;
 
+import org.mryan.BeansException;
 import org.mryan.utils.Assert;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -18,6 +20,8 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
      */
     private final Map<String, Object> singletonObjects = new ConcurrentHashMap<>(256);
 
+    private final Map<String, DisposableBean> disposableBeans = new ConcurrentHashMap<>(256);
+
     @Override
     public Object getSingleton(String beanName) {
         return singletonObjects.get(beanName);
@@ -28,10 +32,28 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
         return singletonObjects.containsKey(beanName);
     }
 
+    public void registerDisposableBean(String beanName, DisposableBean bean) {
+        disposableBeans.put(beanName, bean);
+    }
+
     @Override
     public void registerSingleton(String beanName, Object singletonObject) {
         Assert.notNull(beanName, "Bean name must not be null");
         Assert.notNull(singletonObject, "Singleton object must not be null");
         singletonObjects.put(beanName, singletonObject);
     }
+
+
+    public void destroySingletons() {
+        Set<String> beanNames = disposableBeans.keySet();
+        for (String beanName : beanNames) {
+            DisposableBean disposableBean = disposableBeans.remove(beanName);
+            try {
+                disposableBean.destroy();
+            } catch (Exception e) {
+                throw new BeansException("Destroy method on bean with name '" + beanName + "' threw an exception", e);
+            }
+        }
+    }
+
 }

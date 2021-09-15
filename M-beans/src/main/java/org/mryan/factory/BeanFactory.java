@@ -3,7 +3,7 @@ package org.mryan.factory;
 import org.mryan.BeansException;
 
 /**
- * @description： Bean工厂
+ * @description： 定义getBean（获取bean）触发依赖注入过程的方法 和bean的其他属性
  * @Author MRyan
  * @Date 2021/9/11 21:27
  * @Version 1.0
