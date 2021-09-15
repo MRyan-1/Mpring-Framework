@@ -5,7 +5,7 @@
 	         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
  <!--   <bean id="userDao" class="org.mryan.beans.UserDao"/>-->
-    <bean id="userDao" class="org.mryan.beans.UserDao" init-method="initMethod" desroty-method="destroyMethod"/>
+    <bean id="userDao" class="org.mryan.beans.UserDao" init-method="initMethod" destroy-method="destroyMethod"/>
     <bean id="userService" class="org.mryan.beans.UserService">
         <property name="name" value="MPring"/>
         <property name="userDao" ref="userDao"/>
