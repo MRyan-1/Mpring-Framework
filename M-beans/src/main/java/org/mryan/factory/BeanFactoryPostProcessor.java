@@ -3,7 +3,7 @@ package org.mryan.factory;
 import org.mryan.BeansException;
 
 /**
- * @description： 为MPring提供的容器扩展机制
+ * @description： 为MPring提供的容器扩展机制 允许在bean实例化之前修改bean的定义信息及BeanDefinition的信息
  * @Author MRyan
  * @Date 2021/9/13 13:04
  */

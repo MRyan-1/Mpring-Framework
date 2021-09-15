@@ -15,4 +15,14 @@ public interface ConfigurableApplicationContext extends ApplicationContext {
      * @throws IllegalStateException
      */
     void refresh() throws BeansException, IllegalStateException;
+
+    /**
+     * 注册虚拟机钩子
+     */
+    void registerShutdownHook();
+
+    /**
+     * 手动close方法
+     */
+    void close();
 }

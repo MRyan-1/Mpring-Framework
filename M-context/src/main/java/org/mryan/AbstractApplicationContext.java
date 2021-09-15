@@ -35,7 +35,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
             //创建BeanFactory，并加载BeanDefinition
             refreshBeanFactory();
             ConfigurableListableBeanFactory beanFactory = getBeanFactory();
-            //在bean实例化之前，执行BeanFactoryPostProcessor
+            //在bean实例化之前，执行BeanFactoryPostProcessor 判断是否有需求修改BeanDefinition
             invokeBeanFactoryPostProcessors(beanFactory);
             //BeanPostProcessor需要提前与其他bean实例化之前注册
             registerBeanPostProcessors(beanFactory);
@@ -87,5 +87,19 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
     @Override
     public String[] getBeanDefinitionNames() {
         return getBeanFactory().getBeanDefinitionNames();
+    }
+
+    /**
+     * 注册虚拟机钩子 hook虚拟机关闭执行bean的close
+     */
+    @Override
+    public void registerShutdownHook() {
+        Runtime.getRuntime().addShutdownHook(new Thread(this::close));
+    }
+
+
+    @Override
+    public void close() {
+        getBeanFactory().destroySingletons();
     }
 }
