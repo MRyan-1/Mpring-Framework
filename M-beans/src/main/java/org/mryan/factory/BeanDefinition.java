@@ -1,6 +1,7 @@
 package org.mryan.factory;
 
 import org.mryan.PropertyValues;
+import org.mryan.config.ConfigurableBeanFactory;
 
 /**
  * @description： 用于定义Bean实例化定义信息
@@ -10,9 +11,17 @@ import org.mryan.PropertyValues;
  */
 public class BeanDefinition {
 
+    String SCOPE_SINGLETON = ConfigurableBeanFactory.SCOPE_SINGLETON;
+
+    String SCOPE_PROTOTYPE = ConfigurableBeanFactory.SCOPE_PROTOTYPE;
+
     private Class<?> beanClass;
 
     private PropertyValues propertyValues;
+
+    private String initMethodName;
+
+    private String destroyMethodName;
 
     public BeanDefinition(Class<?> beanClass) {
         this.beanClass = beanClass;
@@ -31,5 +40,25 @@ public class BeanDefinition {
 
     public PropertyValues getPropertyValues() {
         return propertyValues;
+    }
+
+    public void setPropertyValues(PropertyValues propertyValues) {
+        this.propertyValues = propertyValues;
+    }
+
+    public String getInitMethodName() {
+        return initMethodName;
+    }
+
+    public void setInitMethodName(String initMethodName) {
+        this.initMethodName = initMethodName;
+    }
+
+    public String getDestroyMethodName() {
+        return destroyMethodName;
+    }
+
+    public void setDestroyMethodName(String destroyMethodName) {
+        this.destroyMethodName = destroyMethodName;
     }
 }

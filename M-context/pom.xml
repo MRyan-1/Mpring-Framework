@@ -19,7 +19,12 @@
     </properties>
 
     <dependencies>
-
+        <!--模块间引用关系-->
+        <dependency>
+            <groupId>org.mryan.Mpring</groupId>
+            <artifactId>M-beans</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

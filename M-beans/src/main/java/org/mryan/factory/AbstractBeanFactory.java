@@ -2,7 +2,11 @@ package org.mryan.factory;
 
 
 import org.mryan.BeansException;
+import org.mryan.config.ConfigurableBeanFactory;
 import org.mryan.utils.ObjectUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @description： AbstractBeanFactory
@@ -10,7 +14,11 @@ import org.mryan.utils.ObjectUtils;
  * @Date 2021/9/11 22:47
  * @Version 1.0
  */
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
+public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
+
+
+    private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
+
 
     protected abstract BeanDefinition getBeanDefinition(String beanName) throws BeansException;
 
@@ -33,6 +41,17 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
         }
         BeanDefinition beanDefinition = getBeanDefinition(beanName);
         return (T) createBean(beanName, beanDefinition, args);
+    }
+
+    @Override
+    public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor) {
+        //有则覆盖
+        this.beanPostProcessors.remove(beanPostProcessor);
+        this.beanPostProcessors.add(beanPostProcessor);
+    }
+
+    public List<BeanPostProcessor> getBeanPostProcessors() {
+        return this.beanPostProcessors;
     }
 
 }
