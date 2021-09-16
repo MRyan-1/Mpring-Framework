@@ -8,6 +8,10 @@ import org.mryan.PropertyValue;
 import org.mryan.PropertyValues;
 import org.mryan.config.AutowireCapableBeanFactory;
 import org.mryan.config.BeanReference;
+import org.mryan.factory.aware.BeanClassLoaderAware;
+import org.mryan.factory.aware.BeanFactoryAware;
+import org.mryan.factory.aware.BeanNameAware;
+import org.mryan.support.Aware;
 import org.mryan.support.CglibSubclassingInstantiationStrategy;
 import org.mryan.support.DisposableBeanAdapter;
 import org.mryan.support.InstantiationStrategy;
@@ -41,7 +45,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         } catch (Exception e) {
             throw new BeansException("Instantiation of bean failed", e);
         }
-        //注册有销毁方法的bean
+        //注册有销毁方法的bean对象
         registerDisposableBeanIfNecessary(beanName, bean, bd);
 
         registerSingleton(beanName, bean);
@@ -63,13 +67,28 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     private Object initializeBean(String beanName, Object bean, BeanDefinition bd) throws Exception {
-        // 1. 执行 BeanPostProcessor Before 处理
+        //1. invokeAwareMethods
+        if (bean instanceof Aware) {
+            if (bean instanceof BeanFactoryAware) {
+                ((BeanFactoryAware) bean).setBeanFactory(this);
+            }
+            if (bean instanceof BeanClassLoaderAware) {
+                ((BeanClassLoaderAware) bean).setBeanClassLoader(bd.getBeanClass().getClassLoader());
+            }
+            if (bean instanceof BeanNameAware) {
+                ((BeanNameAware) bean).setBeanName(beanName);
+            }
+        }
+        //2. 执行 BeanPostProcessor Before处理
         Object wrappedBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
 
-        // 执行Bean的初始化方法
-        invokeInitMethods(beanName, wrappedBean, bd);
-
-        // 2. 执行 BeanPostProcessor After 处理
+        //3. 执行Bean的初始化方法
+        try {
+            invokeInitMethods(beanName, wrappedBean, bd);
+        } catch (Exception e) {
+            throw new BeansException("Invocation of init method of bean[" + beanName + "] failed", e);
+        }
+        //4. 执行 BeanPostProcessor After处理
         wrappedBean = applyBeanPostProcessorsAfterInitialization(bean, beanName);
         return wrappedBean;
     }
