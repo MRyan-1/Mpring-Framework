@@ -4,6 +4,7 @@ import org.mryan.core.io.DefaultResourceLoader;
 import org.mryan.factory.BeanFactoryPostProcessor;
 import org.mryan.factory.BeanPostProcessor;
 import org.mryan.factory.ConfigurableListableBeanFactory;
+import org.mryan.postProcessor.ApplicationContextAwareProcessor;
 
 import java.util.Map;
 
@@ -32,14 +33,17 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
     @Override
     public void refresh() throws BeansException, IllegalStateException {
         synchronized (this.startupShutdownMonitor) {
-            //创建BeanFactory，并加载BeanDefinition
+            //1. 创建BeanFactory，并加载BeanDefinition
             refreshBeanFactory();
+            //2. 获取BeanFactory
             ConfigurableListableBeanFactory beanFactory = getBeanFactory();
-            //在bean实例化之前，执行BeanFactoryPostProcessor 判断是否有需求修改BeanDefinition
+            // 3. 添加 ApplicationContextAwareProcessor，让继承自 ApplicationContextAware的Bean对象都能感知所属的ApplicationContext
+            beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
+            //4. 在bean实例化之前，执行BeanFactoryPostProcessor 判断是否有需求修改BeanDefinition
             invokeBeanFactoryPostProcessors(beanFactory);
-            //BeanPostProcessor需要提前与其他bean实例化之前注册
+            //5. BeanPostProcessor需要提前与其他bean实例化之前注册
             registerBeanPostProcessors(beanFactory);
-            //提前实例化单例bean
+            //6. 提前实例化单例bean
             beanFactory.preInstantiateSingletons();
         }
     }
