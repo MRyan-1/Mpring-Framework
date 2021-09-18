@@ -13,8 +13,16 @@ public class ApplicationContextIntegrateTest {
 
     /**
      * 目前Bean的生命周期
-     * XML文件-》BeanDefinition-》BeanFactoryPostProcessor修改BeanDefinition-》bean实例化-》BeanPostProcessor前置处理-》执行bean的初始化方法-》BeanPostProcessor后置处理-》使用
-     * getBean: Bean对象-》属性信息-》对象创建-》属性填充-》初始化操作-》注册销毁-》单例判断
+     * XML文件-》
+     * BeanDefinition-》
+     * BeanFactoryPostProcessor修改BeanDefinition-》
+     * bean实例化-》
+     * BeanFactoryAware#setBeanFactory-》
+     * BeanPostProcessor前置处理-》
+     * 执行bean的初始化方法（InitializingBean#afterPropertiesSet-》自定义初始化方法init-method）-》
+     * BeanPostProcessors后置处理-》
+     * 使用-》
+     * 执行bean的销毁方法-》DisposableBean#destroy-》自定义销毁方法destroy-method
      */
     @Test
     public void test_xml() {
@@ -27,3 +35,4 @@ public class ApplicationContextIntegrateTest {
 
     }
 }
+
