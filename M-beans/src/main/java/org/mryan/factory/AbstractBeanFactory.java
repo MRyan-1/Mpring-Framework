@@ -3,6 +3,7 @@ package org.mryan.factory;
 
 import org.mryan.BeansException;
 import org.mryan.config.ConfigurableBeanFactory;
+import org.mryan.support.FactoryBeanRegistrySupport;
 import org.mryan.utils.ObjectUtils;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
  * @Date 2021/9/11 22:47
  * @Version 1.0
  */
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
+public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport implements ConfigurableBeanFactory {
 
 
     private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
@@ -37,10 +38,32 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
     protected <T> T doGetBean(final String beanName, final Object... args) {
         Object singleton = getSingleton(beanName);
         if (!ObjectUtils.isEmpty(singleton)) {
-            return (T) singleton;
+            //如果是FactoryBean 则需要调用FactoryBean#getObject
+            return (T) getObjectForBeanInstance(singleton, beanName);
         }
         BeanDefinition beanDefinition = getBeanDefinition(beanName);
-        return (T) createBean(beanName, beanDefinition, args);
+        Object bean = createBean(beanName, beanDefinition, args);
+        return (T) getObjectForBeanInstance(bean, beanName);
+    }
+
+    /**
+     * getObject方法
+     *
+     * @param beanInstance
+     * @param beanName
+     * @return
+     */
+    private Object getObjectForBeanInstance(Object beanInstance, String beanName) {
+        if (!(beanInstance instanceof FactoryBean)) {
+            return beanInstance;
+        }
+        Object object = getCachedObjectForFactoryBean(beanName);
+        if (object == null) {
+            FactoryBean<?> factoryBean = (FactoryBean<?>) beanInstance;
+            object = getObjectFromFactoryBean(factoryBean, beanName);
+        }
+
+        return object;
     }
 
     @Override
