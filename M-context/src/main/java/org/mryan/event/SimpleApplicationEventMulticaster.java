@@ -29,7 +29,7 @@ public class SimpleApplicationEventMulticaster extends AbstractApplicationEventM
     }
 
     /**
-     * 监听器是否对该事件感兴趣
+     * 监听器是否对该事件感兴趣 区分监听（CustomEvent），刷新（ContextRefreshedEvent），关闭（ContextClosedEvent）
      *
      * @param applicationListener
      * @param event
