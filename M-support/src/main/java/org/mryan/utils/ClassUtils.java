@@ -10,6 +10,32 @@ import com.sun.istack.internal.Nullable;
  */
 public class ClassUtils {
 
+
+    /** Suffix for array class names: {@code "[]"}. */
+    public static final String ARRAY_SUFFIX = "[]";
+
+    /** Prefix for internal array class names: {@code "["}. */
+    private static final String INTERNAL_ARRAY_PREFIX = "[";
+
+    /** Prefix for internal non-primitive array class names: {@code "[L"}. */
+    private static final String NON_PRIMITIVE_ARRAY_PREFIX = "[L";
+
+    /** The package separator character: {@code '.'}. */
+    private static final char PACKAGE_SEPARATOR = '.';
+
+    /** The path separator character: {@code '/'}. */
+    private static final char PATH_SEPARATOR = '/';
+
+    /** The inner class separator character: {@code '$'}. */
+    private static final char INNER_CLASS_SEPARATOR = '$';
+
+    /** The CGLIB class separator: {@code "$$"}. */
+    public static final String CGLIB_CLASS_SEPARATOR = "$$";
+
+    /** The ".class" file suffix. */
+    public static final String CLASS_FILE_SUFFIX = ".class";
+
+
     @Nullable
     public static ClassLoader getDefaultClassLoader() {
         ClassLoader cl = null;
@@ -32,4 +58,19 @@ public class ClassUtils {
         }
         return cl;
     }
+
+
+    public static boolean isCglibProxy(Object object) {
+        return isCglibProxyClass(object.getClass());
+    }
+
+    public static boolean isCglibProxyClass(@Nullable Class<?> clazz) {
+        return (clazz != null && isCglibProxyClassName(clazz.getName()));
+    }
+
+    public static boolean isCglibProxyClassName(@Nullable String className) {
+        return (className != null && className.contains(CGLIB_CLASS_SEPARATOR));
+    }
+
+
 }

@@ -1,11 +1,13 @@
 package org.mryan;
 
 import org.mryan.core.io.DefaultResourceLoader;
+import org.mryan.event.*;
 import org.mryan.factory.BeanFactoryPostProcessor;
 import org.mryan.factory.BeanPostProcessor;
 import org.mryan.factory.ConfigurableListableBeanFactory;
 import org.mryan.postProcessor.ApplicationContextAwareProcessor;
 
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -20,6 +22,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
      * Synchronization monitor for the "refresh" and "destroy".
      */
     private final Object startupShutdownMonitor = new Object();
+
+    public static final String APPLICATION_EVENT_MULTICASTER_BEAN_NAME = "applicationEventMulticaster";
+
+    private ApplicationEventMulticaster applicationEventMulticaster;
+
 
     public abstract ConfigurableListableBeanFactory getBeanFactory();
 
@@ -37,16 +44,55 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
             refreshBeanFactory();
             //2. 获取BeanFactory
             ConfigurableListableBeanFactory beanFactory = getBeanFactory();
-            // 3. 添加 ApplicationContextAwareProcessor，让继承自 ApplicationContextAware的Bean对象都能感知所属的ApplicationContext
+            //3. 添加 ApplicationContextAwareProcessor，让继承自 ApplicationContextAware的Bean对象都能感知所属的ApplicationContext
             beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
             //4. 在bean实例化之前，执行BeanFactoryPostProcessor 判断是否有需求修改BeanDefinition
             invokeBeanFactoryPostProcessors(beanFactory);
             //5. BeanPostProcessor需要提前与其他bean实例化之前注册
             registerBeanPostProcessors(beanFactory);
-            //6. 提前实例化单例bean
+            //6. 初始化事件发布者
+            initApplicationEventMulticaster();
+            //7. 注册事件监听器
+            registerListeners();
+            //8. 提前实例化单例bean
             beanFactory.preInstantiateSingletons();
+            //9. 发布容器刷新完成事件
+            finishRefresh();
         }
     }
+
+    /**
+     * 初始化事件发布者
+     */
+    protected void initApplicationEventMulticaster() {
+        ConfigurableListableBeanFactory beanFactory = getBeanFactory();
+        applicationEventMulticaster = new SimpleApplicationEventMulticaster(beanFactory);
+        beanFactory.registerSingleton(APPLICATION_EVENT_MULTICASTER_BEAN_NAME, applicationEventMulticaster);
+    }
+
+    /**
+     * 注册事件监听器
+     */
+    protected void registerListeners() {
+        Collection<ApplicationListener> applicationListeners = getBeansOfType(ApplicationListener.class).values();
+        for (ApplicationListener applicationListener : applicationListeners) {
+            applicationEventMulticaster.addApplicationListener(applicationListener);
+        }
+    }
+
+    /**
+     * 发布容器刷新完成事件
+     */
+    protected void finishRefresh() {
+        publishEvent(new ContextRefreshedEvent(this));
+    }
+
+
+    @Override
+    public void publishEvent(ApplicationEvent event) {
+        applicationEventMulticaster.multicastEvent(event);
+    }
+
 
     /**
      * 在bean实例化之前，执行BeanFactoryPostProcessor
@@ -102,8 +148,20 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
     }
 
 
+    protected void doClose() {
+        //发布容器关闭事件
+        publishEvent(new ContextClosedEvent(this));
+
+        //执行单例bean的销毁方法
+        destroyBeans();
+    }
+
+    protected void destroyBeans() {
+        getBeanFactory().destroySingletons();
+    }
+
     @Override
     public void close() {
-        getBeanFactory().destroySingletons();
+        doClose();
     }
 }

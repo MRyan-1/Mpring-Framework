@@ -23,7 +23,7 @@ public class FactoryBeanTest {
         UserService userService2 = applicationContext.getBean("userService", UserService.class);
         // 3. 配置 scope="prototype/singleton"
         //测试单例模式
-        System.out.println("获取Bean是否相等：" + (userService1 == userService2));
+        System.out.println("【获取Bean是否相等】：" + (userService1 == userService2));
     }
 
 

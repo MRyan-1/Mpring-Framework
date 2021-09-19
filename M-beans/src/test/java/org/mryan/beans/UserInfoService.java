@@ -15,7 +15,7 @@ public class UserInfoService {
     }
 
     public void queryUserInfo() {
-        System.out.println("queryUserInfo");
+        System.out.println("【queryUserInfo】");
     }
 
     @Override

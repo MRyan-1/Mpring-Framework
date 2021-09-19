@@ -12,7 +12,7 @@ public class ProxyBeanFactory implements FactoryBean<UserDao> {
 
     @Override
     public UserDao getObject() throws Exception {
-        System.out.println("代理对象：ProxyBeanFactory");
+        System.out.println("【代理对象：ProxyBeanFactory】");
         UserDao userDao = new UserDao();
         userDao.queryUser("MPring");
         return userDao;
