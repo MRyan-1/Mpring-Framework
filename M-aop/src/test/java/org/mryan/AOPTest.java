@@ -1,7 +1,11 @@
 package org.mryan;
 
 import org.junit.Test;
+import org.mryan.aop.*;
 import org.mryan.beans.ClassService;
+import org.mryan.interceptor.ClassServiceInterceptor;
+
+import java.lang.reflect.Method;
 
 /**
  * @description： 实现AOP测试类
@@ -11,12 +15,36 @@ import org.mryan.beans.ClassService;
  */
 public class AOPTest {
 
+    /**
+     * 测试拦截的方法与对应的对象是否匹配
+     *
+     * @throws NoSuchMethodException
+     */
+    @Test
+    public void TEST_AOP_ASPECT_JEXPRESSION_POINTCUT() throws NoSuchMethodException {
+        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut("execution(* org.mryan.beans.ClassService.*(..))");
+        Class<ClassService> clazz = ClassService.class;
+        Method method = clazz.getDeclaredMethod("getClassName");
+        System.out.println(pointcut.matches(clazz));
+        System.out.println(pointcut.matches(method, clazz));
+    }
+
     @Test
     public void TEST_PROXY_METHOD() {
-        // 1.初始化 BeanFactory
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:class.xml");
-        // 2. 获取Bean对象调用方法
-        ClassService classService = applicationContext.getBean("classService", ClassService.class);
-        System.out.println(classService.getClassName());
+        // 目标对象
+        ClassService classService = new ClassService();
+        // 组装代理信息
+        AdvisedSupport advisedSupport = new AdvisedSupport();
+        advisedSupport.setTargetSource(new TargetSource(classService));
+        advisedSupport.setMethodInterceptor(new ClassServiceInterceptor());
+        advisedSupport.setMethodMatcher(new AspectJExpressionPointcut("execution(* org.mryan.beans.ClassService.*(..))"));
+        // 代理对象(JdkDynamicAopProxy)
+        ClassService proxy_jdk = (ClassService) new JdkDynamicAopProxy(advisedSupport).getProxy();
+        // 测试调用
+        System.out.println("测试结果：" + proxy_jdk.getClassName());
+        // 代理对象(Cglib2AopProxy)
+        ClassService proxy_cglib = (ClassService) new Cglib2AopProxy(advisedSupport).getProxy();
+        // 测试调用
+        System.out.println("测试结果：" + proxy_cglib.getClassName());
     }
 }

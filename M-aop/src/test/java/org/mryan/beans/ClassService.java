@@ -1,5 +1,7 @@
 package org.mryan.beans;
 
+import java.util.Random;
+
 /**
  * @description： ClassService
  * @Author MRyan
@@ -11,6 +13,11 @@ public class ClassService {
     private String className;
 
     public String getClassName() {
+        try {
+            Thread.sleep(new Random(1).nextInt(100));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return className;
     }
 
