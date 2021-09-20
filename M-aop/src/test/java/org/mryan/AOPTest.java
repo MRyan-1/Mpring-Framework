@@ -3,6 +3,7 @@ package org.mryan;
 import org.junit.Test;
 import org.mryan.aop.*;
 import org.mryan.beans.ClassService;
+import org.mryan.beans.IClassService;
 import org.mryan.interceptor.ClassServiceInterceptor;
 
 import java.lang.reflect.Method;
@@ -39,7 +40,7 @@ public class AOPTest {
         advisedSupport.setMethodInterceptor(new ClassServiceInterceptor());
         advisedSupport.setMethodMatcher(new AspectJExpressionPointcut("execution(* org.mryan.beans.ClassService.*(..))"));
         // 代理对象(JdkDynamicAopProxy)
-        ClassService proxy_jdk = (ClassService) new JdkDynamicAopProxy(advisedSupport).getProxy();
+        IClassService proxy_jdk = (IClassService) new JdkDynamicAopProxy(advisedSupport).getProxy();
         // 测试调用
         System.out.println("测试结果：" + proxy_jdk.getClassName());
         // 代理对象(Cglib2AopProxy)

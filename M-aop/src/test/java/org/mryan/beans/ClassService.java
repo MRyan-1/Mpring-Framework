@@ -8,17 +8,18 @@ import java.util.Random;
  * @Date 2021/9/20 19:59
  * @Version 1.0
  */
-public class ClassService {
+public class ClassService implements IClassService {
 
     private String className;
 
+    @Override
     public String getClassName() {
         try {
             Thread.sleep(new Random(1).nextInt(100));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return className;
+        return "Nice";
     }
 
     public void setClassName(String className) {
