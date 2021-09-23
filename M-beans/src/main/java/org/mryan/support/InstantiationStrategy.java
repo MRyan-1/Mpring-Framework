@@ -16,6 +16,7 @@ import java.lang.reflect.Method;
  */
 public interface InstantiationStrategy {
 
+    Object instantiate(BeanDefinition beanDefinition) throws BeansException;
 
     Object instantiate(BeanDefinition bd, @Nullable String beanName,
                        Constructor<?> ctor, Object... args) throws BeansException;

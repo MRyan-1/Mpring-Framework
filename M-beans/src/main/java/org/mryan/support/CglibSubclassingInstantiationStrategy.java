@@ -19,6 +19,11 @@ public class CglibSubclassingInstantiationStrategy implements InstantiationStrat
 
 
     @Override
+    public Object instantiate(BeanDefinition beanDefinition) throws BeansException {
+        throw new UnsupportedOperationException("CGLIB instantiation strategy is not supported");
+    }
+
+    @Override
     public Object instantiate(BeanDefinition bd, String beanName, Constructor<?> ctor, Object... args) throws BeansException {
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(bd.getBeanClass());
