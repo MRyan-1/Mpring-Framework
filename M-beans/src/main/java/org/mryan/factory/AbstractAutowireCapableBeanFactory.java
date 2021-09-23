@@ -8,6 +8,7 @@ import org.mryan.PropertyValue;
 import org.mryan.PropertyValues;
 import org.mryan.config.AutowireCapableBeanFactory;
 import org.mryan.config.BeanReference;
+import org.mryan.config.InstantiationAwareBeanPostProcessor;
 import org.mryan.factory.aware.BeanClassLoaderAware;
 import org.mryan.factory.aware.BeanFactoryAware;
 import org.mryan.factory.aware.BeanNameAware;
@@ -35,6 +36,16 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
     @Override
     protected Object createBean(String beanName, BeanDefinition bd, Object... args) throws BeansException {
+        //如果bean需要代理，则直接返回代理对象
+        Object bean = resolveBeforeInstantiation(beanName, bd);
+        if (bean != null) {
+            return bean;
+        }
+
+        return doCreateBean(beanName, bd, args);
+    }
+
+    private Object doCreateBean(String beanName, BeanDefinition bd, Object[] args) {
         Object bean = null;
         try {
             bean = createBeanInstance(bd, beanName, args);
@@ -54,6 +65,34 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         return bean;
     }
 
+
+    /**
+     * 执行InstantiationAwareBeanPostProcessor的方法，如果bean需要代理，直接返回代理对象
+     *
+     * @param beanName
+     * @param beanDefinition
+     * @return
+     */
+    protected Object resolveBeforeInstantiation(String beanName, BeanDefinition beanDefinition) {
+        Object bean = applyBeanPostProcessorsBeforeInstantiation(beanDefinition.getBeanClass(), beanName);
+        if (bean != null) {
+            bean = applyBeanPostProcessorsAfterInitialization(bean, beanName);
+        }
+        return bean;
+    }
+
+    protected Object applyBeanPostProcessorsBeforeInstantiation(Class<?> beanClass, String beanName) {
+        for (BeanPostProcessor beanPostProcessor : getBeanPostProcessors()) {
+            if (beanPostProcessor instanceof InstantiationAwareBeanPostProcessor) {
+                Object result = ((InstantiationAwareBeanPostProcessor) beanPostProcessor).postProcessBeforeInstantiation(beanClass, beanName);
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+
+        return null;
+    }
 
     protected Object createBeanInstance(BeanDefinition bd, String beanName, Object... args) {
         Constructor<?> constructor = null;

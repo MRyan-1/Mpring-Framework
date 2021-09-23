@@ -23,8 +23,8 @@ public class AOPTest {
      */
     @Test
     public void TEST_AOP_ASPECT_JEXPRESSION_POINTCUT() throws NoSuchMethodException {
-        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut("execution(* org.mryan.beans.ClassService.*(..))");
-        Class<ClassService> clazz = ClassService.class;
+        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut("execution(* org.mryan.beans.IClassService.*(..))");
+        Class<IClassService> clazz = IClassService.class;
         Method method = clazz.getDeclaredMethod("getClassName");
         System.out.println(pointcut.matches(clazz));
         System.out.println(pointcut.matches(method, clazz));
@@ -48,4 +48,13 @@ public class AOPTest {
         // 测试调用
         System.out.println("测试结果：" + proxy_cglib.getClassName());
     }
+
+
+    @Test
+    public void TEST_AOP_AUTO_PROXY() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:class.xml");
+        IClassService classService = applicationContext.getBean("classService", IClassService.class);
+        System.out.println("测试结果：" + classService.getClassName());
+    }
+
 }

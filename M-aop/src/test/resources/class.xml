@@ -7,4 +7,18 @@
     <bean id="classService" class="org.mryan.beans.ClassService">
         <property name="className" value="ClassService"/>
     </bean>
+
+    <bean class="org.mryan.aop.config.DefaultAdvisorAutoProxyCreator"/>
+
+    <bean id="beforeAdvice" class="org.mryan.advice.ClassServiceBeforeAdvice"/>
+
+    <bean id="methodInterceptor"
+          class="org.mryan.aop.interceptor.MethodBeforeAdviceInterceptor">
+        <property name="advice" ref="beforeAdvice"/>
+    </bean>
+
+    <bean id="pointcutAdvisor" class="org.mryan.aop.advice.AspectJExpressionPointcutAdvisor">
+        <property name="expression" value="execution(* org.mryan.beans.ClassService.*(..))"/>
+        <property name="advice" ref="methodInterceptor"/>
+    </bean>
 </beans>

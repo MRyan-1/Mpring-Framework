@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @description： 切点表达式类
+ * @description： 切面
  * @Author MRyan
  * @Date 2021/9/20 22:47
  * @Version 1.0
