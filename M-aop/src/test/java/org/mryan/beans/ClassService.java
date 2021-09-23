@@ -14,11 +14,6 @@ public class ClassService implements IClassService {
 
     @Override
     public String getClassName() {
-        try {
-            Thread.sleep(new Random(1).nextInt(100));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return "Nice";
     }
 

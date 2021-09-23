@@ -18,7 +18,7 @@
     </bean>
 
     <bean id="pointcutAdvisor" class="org.mryan.aop.advice.AspectJExpressionPointcutAdvisor">
-        <property name="expression" value="execution(* org.mryan.beans.ClassService.*(..))"/>
+        <property name="expression" value="execution(* org.mryan.beans.IClassService.*(..))"/>
         <property name="advice" ref="methodInterceptor"/>
     </bean>
 </beans>

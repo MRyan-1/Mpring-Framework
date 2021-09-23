@@ -38,7 +38,7 @@ public class AOPTest {
         AdvisedSupport advisedSupport = new AdvisedSupport();
         advisedSupport.setTargetSource(new TargetSource(classService));
         advisedSupport.setMethodInterceptor(new ClassServiceInterceptor());
-        advisedSupport.setMethodMatcher(new AspectJExpressionPointcut("execution(* org.mryan.beans.ClassService.*(..))"));
+        advisedSupport.setMethodMatcher(new AspectJExpressionPointcut("execution(* org.mryan.beans.IClassService.*(..))"));
         // 代理对象(JdkDynamicAopProxy)
         IClassService proxy_jdk = (IClassService) new JdkDynamicAopProxy(advisedSupport).getProxy();
         // 测试调用

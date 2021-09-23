@@ -20,7 +20,7 @@ public class CglibSubclassingInstantiationStrategy implements InstantiationStrat
 
     @Override
     public Object instantiate(BeanDefinition beanDefinition) throws BeansException {
-        return null;
+        throw new UnsupportedOperationException("CGLIB instantiation strategy is not supported");
     }
 
     @Override

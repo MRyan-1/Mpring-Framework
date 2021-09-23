@@ -7,7 +7,6 @@ import org.mryan.aop.*;
 import org.mryan.aop.advice.Advisor;
 import org.mryan.aop.advice.AspectJExpressionPointcutAdvisor;
 import org.mryan.config.InstantiationAwareBeanPostProcessor;
-import org.mryan.factory.BeanDefinition;
 import org.mryan.factory.BeanFactory;
 import org.mryan.factory.DefaultListableBeanFactory;
 import org.mryan.factory.aware.BeanFactoryAware;
@@ -35,15 +34,22 @@ public class DefaultAdvisorAutoProxyCreator implements InstantiationAwareBeanPos
 
                 AdvisedSupport advisedSupport = new AdvisedSupport();
 
-                BeanDefinition beanDefinition = beanFactory.getBeanDefinition(beanName);
-                Object bean = beanFactory.getInstantiationStrategy().instantiate(beanDefinition);
-                TargetSource targetSource = new TargetSource(bean);
+                TargetSource targetSource = null;
+                try {
+                    targetSource = new TargetSource(beanClass.getDeclaredConstructor().newInstance());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 advisedSupport.setTargetSource(targetSource);
                 advisedSupport.setMethodInterceptor((MethodInterceptor) advisor.getAdvice());
                 advisedSupport.setMethodMatcher(advisor.getPointcut().getMethodMatcher());
-                //返回代理对象
+                //设置代理模式 JDK或者CGLIB
+                advisedSupport.setProxyTargetClass(true);
+
                 return new ProxyFactory(advisedSupport).getProxy();
+
             }
+
         } catch (Exception ex) {
             throw new BeansException("Error create proxy bean for: " + beanName, ex);
         }
