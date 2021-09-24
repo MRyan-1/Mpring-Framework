@@ -7,7 +7,6 @@ import org.mryan.factory.FactoryBean;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static sun.tools.jconsole.inspector.XObject.NULL_OBJECT;
 
 /**
  * @description： FactoryBeanRegistrySupport
