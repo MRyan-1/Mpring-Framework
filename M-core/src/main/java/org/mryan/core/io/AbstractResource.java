@@ -2,7 +2,7 @@ package org.mryan.core.io;
 
 import com.sun.istack.internal.Nullable;
 import org.mryan.NestedIOException;
-import org.mryan.utils.ResourceUtils;
+import org.mryan.support.utils.ResourceUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;

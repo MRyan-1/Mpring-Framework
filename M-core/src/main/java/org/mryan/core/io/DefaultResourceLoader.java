@@ -1,8 +1,8 @@
 package org.mryan.core.io;
 
 import com.sun.istack.internal.Nullable;
-import org.mryan.utils.Assert;
-import org.mryan.utils.ClassUtils;
+import org.mryan.support.utils.Assert;
+import org.mryan.support.utils.ClassUtils;
 
 import java.net.MalformedURLException;
 import java.net.URL;

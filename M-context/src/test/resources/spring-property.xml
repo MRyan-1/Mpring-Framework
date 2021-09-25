@@ -4,11 +4,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
           http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean class="org.mryan.factory.PropertyPlaceholderConfigurer">
+    <bean class="org.mryan.beans.factory.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:car.properties"/>
     </bean>
 
-    <bean id="car" class="org.mryan.beans.Car">
+    <bean id="car" class="org.mryan.context.test.beans.Car">
         <property name="brand" value="${brand}"/>
     </bean>
 
