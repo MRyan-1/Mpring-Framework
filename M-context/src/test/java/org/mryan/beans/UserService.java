@@ -18,10 +18,6 @@ import org.mryan.factory.aware.BeanNameAware;
  */
 public class UserService implements InitializingBean, DisposableBean, BeanNameAware, BeanClassLoaderAware, ApplicationContextAware, BeanFactoryAware {
 
-    private ApplicationContext applicationContext;
-
-    private BeanFactory beanFactory;
-
     private String name;
 
     private UserDao userDao;
