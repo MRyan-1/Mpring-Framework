@@ -1,10 +1,10 @@
 package org.mryan.beans.factory;
 
 
+import org.mryan.BeansException;
 import org.mryan.beans.support.BeanDefinition;
 import org.mryan.beans.support.FactoryBean;
-import org.mryan.BeansException;
-
+import org.mryan.core.StringValueResolver;
 import org.mryan.support.utils.ObjectUtils;
 
 import java.util.ArrayList;
@@ -20,6 +20,11 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 
     private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
+
+    /**
+     * String resolvers to apply e.g. to annotation attribute values
+     */
+    private final List<StringValueResolver> embeddedValueResolvers = new ArrayList<>();
 
 
     protected abstract BeanDefinition getBeanDefinition(String beanName) throws BeansException;
@@ -78,4 +83,20 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
         return this.beanPostProcessors;
     }
 
+    public void addEmbeddedValueResolver(StringValueResolver valueResolver) {
+        this.embeddedValueResolvers.add(valueResolver);
+    }
+
+    public String resolveEmbeddedValue(String value) {
+        String result = value;
+        for (StringValueResolver resolver : this.embeddedValueResolvers) {
+            result = resolver.resolveStringValue(result);
+        }
+        return result;
+    }
+
+    @Override
+    public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
+        return ((T) getBean(name));
+    }
 }

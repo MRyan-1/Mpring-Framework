@@ -2,6 +2,7 @@ package org.mryan.context.aop.config;
 
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
+import org.mryan.beans.PropertyValues;
 import org.mryan.context.aop.ProxyFactory;
 import org.mryan.context.aop.advice.*;
 import org.mryan.BeansException;
@@ -54,6 +55,11 @@ public class DefaultAdvisorAutoProxyCreator implements InstantiationAwareBeanPos
             throw new BeansException("Error create proxy bean for: " + beanName, ex);
         }
         return null;
+    }
+
+    @Override
+    public PropertyValues postProcessPropertyValues(PropertyValues pvs, Object bean, String beanName) throws BeansException {
+        return pvs;
     }
 
     @Override

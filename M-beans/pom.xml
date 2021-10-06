@@ -27,16 +27,6 @@
             <artifactId>M-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>org.mryan.Mpring</groupId>
-            <artifactId>M-support</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mryan.Mpring</groupId>
-            <artifactId>M-expression</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
         <!--功能性引用-->
         <dependency>
             <groupId>cglib</groupId>
