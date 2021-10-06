@@ -3,7 +3,6 @@ package org.mryan.beans.factory;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.StrUtil;
-import org.mryan.beans.support.*;
 import org.mryan.BeansException;
 import org.mryan.beans.PropertyValue;
 import org.mryan.beans.PropertyValues;
@@ -11,6 +10,7 @@ import org.mryan.beans.config.InstantiationAwareBeanPostProcessor;
 import org.mryan.beans.factory.aware.BeanClassLoaderAware;
 import org.mryan.beans.factory.aware.BeanFactoryAware;
 import org.mryan.beans.factory.aware.BeanNameAware;
+import org.mryan.beans.support.*;
 import org.mryan.support.utils.StringUtils;
 
 import java.lang.reflect.Constructor;
@@ -36,14 +36,16 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         if (bean != null) {
             return bean;
         }
-
         return doCreateBean(beanName, bd, args);
     }
+
 
     private Object doCreateBean(String beanName, BeanDefinition bd, Object[] args) {
         Object bean = null;
         try {
             bean = createBeanInstance(bd, beanName, args);
+            // 在设置 Bean 属性之前，允许 BeanPostProcessor 修改属性值
+            applyBeanPostProcessorsBeforeApplyingPropertyValues(beanName, bean, bd);
             //Bean属性填充
             applyPropertyValues(beanName, bean, bd);
             // 执行 Bean 的初始化方法和 BeanPostProcessor 的前置和后置处理方法
@@ -51,7 +53,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         } catch (Exception e) {
             throw new BeansException("Instantiation of bean failed", e);
         }
-        //注册有销毁方法的bean对象
+        //注册实现了DisposableBean接口的Bean对象 销毁
         registerDisposableBeanIfNecessary(beanName, bean, bd);
         //如果是单例模式
         if (bd.isSingleton()) {
@@ -60,16 +62,37 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         return bean;
     }
 
+    /**
+     * 在设置Bean属性之前，允许BeanPostProcessor修改属性值
+     * 主要用于处理@Autowired和@Value注解的BeanPostProcessor
+     *
+     * @param beanName
+     * @param bean
+     * @param bd
+     */
+    protected void applyBeanPostProcessorsBeforeApplyingPropertyValues(String beanName, Object bean, BeanDefinition bd) {
+        for (BeanPostProcessor beanPostProcessor : getBeanPostProcessors()) {
+            if (beanPostProcessor instanceof InstantiationAwareBeanPostProcessor) {
+                PropertyValues pvs = ((InstantiationAwareBeanPostProcessor) beanPostProcessor).postProcessPropertyValues(bd.getPropertyValues(), bean, beanName);
+                if (null != pvs) {
+                    for (PropertyValue propertyValue : pvs.getPropertyValues()) {
+                        bd.getPropertyValues().addPropertyValue(propertyValue);
+                    }
+                }
+            }
+        }
+    }
+
 
     /**
      * 执行InstantiationAwareBeanPostProcessor的方法，如果bean需要代理，直接返回代理对象
      *
      * @param beanName
-     * @param beanDefinition
+     * @param bd
      * @return
      */
-    protected Object resolveBeforeInstantiation(String beanName, BeanDefinition beanDefinition) {
-        Object bean = applyBeanPostProcessorsBeforeInstantiation(beanDefinition.getBeanClass(), beanName);
+    protected Object resolveBeforeInstantiation(String beanName, BeanDefinition bd) {
+        Object bean = applyBeanPostProcessorsBeforeInstantiation(bd.getBeanClass(), beanName);
         if (bean != null) {
             bean = applyBeanPostProcessorsAfterInitialization(bean, beanName);
         }
