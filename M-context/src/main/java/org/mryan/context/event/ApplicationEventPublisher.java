@@ -1,4 +1,4 @@
-package org.mryan.context.test.event;
+package org.mryan.context.event;
 
 /**
  * @description： 事件发布接口
