@@ -3,6 +3,8 @@ package org.mryan.beans.support;
 import org.mryan.beans.PropertyValues;
 import org.mryan.beans.factory.ConfigurableBeanFactory;
 
+import java.util.Objects;
+
 /**
  * @description： 用于定义Bean实例化定义信息
  * @Author MRyan
@@ -30,8 +32,7 @@ public class BeanDefinition {
     private boolean prototype = false;
 
     public BeanDefinition(Class<?> beanClass) {
-        this.beanClass = beanClass;
-        this.propertyValues = new PropertyValues();
+        this(beanClass, null);
     }
 
     public BeanDefinition(Class<?> beanClass, PropertyValues propertyValues) {
@@ -97,5 +98,18 @@ public class BeanDefinition {
         this.scope = scope;
         this.singleton = SCOPE_SINGLETON.equals(scope);
         this.prototype = SCOPE_PROTOTYPE.equals(scope);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BeanDefinition that = (BeanDefinition) o;
+        return beanClass.equals(that.beanClass);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(beanClass);
     }
 }

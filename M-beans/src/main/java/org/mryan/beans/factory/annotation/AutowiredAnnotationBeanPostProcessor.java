@@ -7,6 +7,7 @@ import org.mryan.beans.config.InstantiationAwareBeanPostProcessor;
 import org.mryan.beans.factory.BeanFactory;
 import org.mryan.beans.factory.ConfigurableListableBeanFactory;
 import org.mryan.beans.factory.aware.BeanFactoryAware;
+import org.mryan.support.utils.ClassUtils;
 
 import java.lang.reflect.Field;
 
@@ -27,26 +28,31 @@ public class AutowiredAnnotationBeanPostProcessor implements InstantiationAwareB
 
     @Override
     public PropertyValues postProcessPropertyValues(PropertyValues pvs, Object bean, String beanName) throws BeansException {
-        //处理@Value注解
+        // 1. 处理注解 @Value
         Class<?> clazz = bean.getClass();
-        Field[] fields = clazz.getDeclaredFields();
-        for (Field field : fields) {
+        //需要判断是否为 CGlib 创建对象，否则是不能正确拿到类信息的。ClassUtils.isCglibProxyClass(clazz) ? clazz.getSuperclass() : clazz;
+        clazz = ClassUtils.isCglibProxyClass(clazz) ? clazz.getSuperclass() : clazz;
+
+        Field[] declaredFields = clazz.getDeclaredFields();
+
+        for (Field field : declaredFields) {
             Value valueAnnotation = field.getAnnotation(Value.class);
-            if (valueAnnotation != null) {
+            if (null != valueAnnotation) {
                 String value = valueAnnotation.value();
                 value = beanFactory.resolveEmbeddedValue(value);
                 BeanUtil.setFieldValue(bean, field.getName(), value);
             }
         }
-        //处理@Autowired注解
-        for (Field field : fields) {
+
+        // 2. 处理注解 @Autowired
+        for (Field field : declaredFields) {
             Autowired autowiredAnnotation = field.getAnnotation(Autowired.class);
-            if (autowiredAnnotation != null) {
+            if (null != autowiredAnnotation) {
                 Class<?> fieldType = field.getType();
                 String dependentBeanName = null;
                 Qualifier qualifierAnnotation = field.getAnnotation(Qualifier.class);
                 Object dependentBean = null;
-                if (qualifierAnnotation != null) {
+                if (null != qualifierAnnotation) {
                     dependentBeanName = qualifierAnnotation.value();
                     dependentBean = beanFactory.getBean(dependentBeanName, fieldType);
                 } else {
@@ -55,7 +61,6 @@ public class AutowiredAnnotationBeanPostProcessor implements InstantiationAwareB
                 BeanUtil.setFieldValue(bean, field.getName(), dependentBean);
             }
         }
-
         return pvs;
     }
 

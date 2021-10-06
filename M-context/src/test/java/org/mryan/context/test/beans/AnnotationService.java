@@ -13,7 +13,7 @@ import java.util.Random;
  * @Version 1.0
  */
 @Component("annotationService")
-public class AnnotationService {
+public class AnnotationService implements IAnnotationService {
 
     /**
      * 占位符注入属性信息 @Value("${token}") 注入

@@ -2,7 +2,7 @@ package org.mryan.context.test;
 
 import org.junit.Test;
 import org.mryan.context.ClassPathXmlApplicationContext;
-import org.mryan.context.test.beans.AnnotationService;
+import org.mryan.context.test.beans.IAnnotationService;
 
 /**
  * @description： 测试@Autowired @Value注解
@@ -15,7 +15,7 @@ public class AnnotationTest {
     @Test
     public void TEST_ANNOTATION_SCAN() {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:annotation.xml");
-        AnnotationService annotationService = applicationContext.getBean("annotationService", AnnotationService.class);
+        IAnnotationService annotationService = applicationContext.getBean("annotationService", IAnnotationService.class);
         System.out.println("测试结果：" + annotationService.queryUserInfo());
     }
 
