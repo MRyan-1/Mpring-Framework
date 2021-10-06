@@ -1,6 +1,7 @@
 package org.mryan.beans.factory;
 
 
+import org.mryan.core.StringValueResolver;
 
 /**
  * @description： ConfigurableBeanFactory
@@ -23,4 +24,9 @@ public interface ConfigurableBeanFactory extends HierarchicalBeanFactory, Single
      * 销毁单例bean
      */
     void destroySingletons();
+
+
+    void addEmbeddedValueResolver(StringValueResolver valueResolver);
+
+    String resolveEmbeddedValue(String value);
 }
