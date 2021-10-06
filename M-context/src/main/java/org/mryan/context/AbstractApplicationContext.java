@@ -1,12 +1,12 @@
 package org.mryan.context;
 
 import org.mryan.BeansException;
-import org.mryan.context.event.*;
-import org.mryan.core.io.DefaultResourceLoader;
 import org.mryan.beans.factory.BeanFactoryPostProcessor;
 import org.mryan.beans.factory.BeanPostProcessor;
 import org.mryan.beans.factory.ConfigurableListableBeanFactory;
+import org.mryan.context.event.*;
 import org.mryan.context.postProcessor.ApplicationContextAwareProcessor;
+import org.mryan.core.io.DefaultResourceLoader;
 
 import java.util.Collection;
 import java.util.Map;
@@ -123,6 +123,16 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
     @Override
     public Object getBean(String beanName) throws BeansException {
         return getBeanFactory().getBean(beanName);
+    }
+
+    @Override
+    public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
+        return getBeanFactory().getBean(name, requiredType);
+    }
+
+    @Override
+    public <T> T getBean(Class<T> requiredType) throws BeansException {
+        return getBeanFactory().getBean(requiredType);
     }
 
     @Override

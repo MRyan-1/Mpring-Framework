@@ -94,4 +94,9 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
         }
         return result;
     }
+
+    @Override
+    public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
+        return ((T) getBean(name));
+    }
 }
