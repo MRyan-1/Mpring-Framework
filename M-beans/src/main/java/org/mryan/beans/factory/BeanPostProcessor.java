@@ -1,7 +1,7 @@
 package org.mryan.beans.factory;
 
 import com.sun.istack.internal.Nullable;
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 
 /**
  * @description： 为MPring提供的容器扩展机制：在bean实例化后修改bean或替换bean

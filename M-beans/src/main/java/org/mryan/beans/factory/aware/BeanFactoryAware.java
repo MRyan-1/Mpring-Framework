@@ -1,6 +1,6 @@
 package org.mryan.beans.factory.aware;
 
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 import org.mryan.beans.factory.BeanFactory;
 import org.mryan.beans.factory.Aware;
 

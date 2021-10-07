@@ -1,7 +1,7 @@
 package org.mryan.beans.factory;
 
 
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 import org.mryan.beans.support.BeanDefinition;
 import org.mryan.beans.support.FactoryBean;
 import org.mryan.core.StringValueResolver;

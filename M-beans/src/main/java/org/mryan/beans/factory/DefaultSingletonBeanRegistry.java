@@ -1,7 +1,7 @@
 package org.mryan.beans.factory;
 
 import org.mryan.beans.support.DisposableBean;
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 import org.mryan.support.utils.Assert;
 
 import java.util.Map;

@@ -2,7 +2,7 @@ package org.mryan.beans.support;
 
 import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.StrUtil;
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 
 import java.lang.reflect.Method;
 

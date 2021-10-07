@@ -1,6 +1,6 @@
 package org.mryan.context;
 
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 import org.mryan.beans.factory.BeanFactoryPostProcessor;
 import org.mryan.beans.factory.BeanPostProcessor;
 import org.mryan.beans.factory.ConfigurableListableBeanFactory;

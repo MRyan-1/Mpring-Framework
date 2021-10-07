@@ -4,21 +4,21 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="classService" class="org.mryan.context.aop.test.context.ClassService">
+    <bean id="classService" class="org.mryan.aop.test.service.ClassService">
         <property name="className" value="ClassService"/>
     </bean>
 
-    <bean class="org.mryan.context.aop.config.DefaultAdvisorAutoProxyCreator"/>
+    <bean class="org.mryan.aop.config.DefaultAdvisorAutoProxyCreator"/>
 
     <bean id="beforeAdvice" class="org.mryan.context.aop.test.advice.ClassServiceBeforeAdvice"/>
 
     <bean id="methodInterceptor"
-          class="org.mryan.context.aop.MethodBeforeAdviceInterceptor">
+          class="org.mryan.aop.MethodBeforeAdviceInterceptor">
         <property name="advice" ref="beforeAdvice"/>
     </bean>
 
-    <bean id="pointcutAdvisor" class="org.mryan.context.aop.AspectJExpressionPointcutAdvisor">
-        <property name="expression" value="execution(* org.mryan.context.aop.test.context.IClassService.*(..))"/>
+    <bean id="pointcutAdvisor" class="org.mryan.aop.AspectJExpressionPointcutAdvisor">
+        <property name="expression" value="execution(* org.mryan.aop.test.service.IClassService.*(..))"/>
         <property name="advice" ref="methodInterceptor"/>
     </bean>
 </beans>

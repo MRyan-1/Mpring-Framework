@@ -1,7 +1,7 @@
 package org.mryan.beans.factory.annotation;
 
 import cn.hutool.core.bean.BeanUtil;
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 import org.mryan.beans.PropertyValues;
 import org.mryan.beans.config.InstantiationAwareBeanPostProcessor;
 import org.mryan.beans.factory.BeanFactory;

@@ -1,7 +1,7 @@
 package org.mryan.beans.support;
 
 import com.sun.istack.internal.Nullable;
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 import org.mryan.beans.factory.BeanFactory;
 
 import java.lang.reflect.Constructor;

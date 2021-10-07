@@ -1,6 +1,6 @@
 package org.mryan.beans.factory;
 
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 import org.mryan.beans.support.BeanDefinition;
 import org.mryan.beans.support.BeanDefinitionRegistry;
 import org.mryan.support.utils.Assert;

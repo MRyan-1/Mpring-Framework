@@ -1,6 +1,6 @@
 package org.mryan.beans.factory;
 
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 
 import java.util.Map;
 

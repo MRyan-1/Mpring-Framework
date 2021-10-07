@@ -1,6 +1,6 @@
 package org.mryan.context.event;
 
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 import org.mryan.beans.factory.BeanFactory;
 import org.mryan.beans.factory.aware.BeanFactoryAware;
 

@@ -1,6 +1,6 @@
 package org.mryan.beans.factory;
 
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 
 /**
  * @description： 定义getBean（获取bean）触发依赖注入过程的方法 和bean的其他属性

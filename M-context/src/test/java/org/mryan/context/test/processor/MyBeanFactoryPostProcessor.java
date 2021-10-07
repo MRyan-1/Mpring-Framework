@@ -1,6 +1,6 @@
 package org.mryan.context.test.processor;
 
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 import org.mryan.beans.PropertyValues;
 import org.mryan.beans.support.BeanDefinition;
 import org.mryan.beans.factory.BeanFactoryPostProcessor;

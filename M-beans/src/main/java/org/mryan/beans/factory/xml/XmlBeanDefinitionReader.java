@@ -13,7 +13,7 @@ import org.mryan.beans.support.BeanDefinition;
 import org.mryan.beans.support.BeanDefinitionRegistry;
 import org.mryan.core.io.Resource;
 import org.mryan.core.io.ResourceLoader;
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 
 import java.io.IOException;
 import java.io.InputStream;

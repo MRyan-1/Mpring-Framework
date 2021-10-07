@@ -1,6 +1,6 @@
 package org.mryan.beans.factory;
 
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 import org.mryan.beans.PropertyValue;
 import org.mryan.beans.PropertyValues;
 import org.mryan.beans.support.BeanDefinition;

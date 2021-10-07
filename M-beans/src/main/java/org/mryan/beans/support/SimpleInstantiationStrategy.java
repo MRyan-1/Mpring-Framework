@@ -1,6 +1,6 @@
 package org.mryan.beans.support;
 
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 import org.mryan.beans.factory.BeanFactory;
 
 import java.lang.reflect.Constructor;

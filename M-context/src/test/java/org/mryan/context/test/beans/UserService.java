@@ -1,7 +1,7 @@
 package org.mryan.context.test.beans;
 
 import org.mryan.context.ApplicationContext;
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 import org.mryan.context.aware.ApplicationContextAware;
 import org.mryan.beans.factory.BeanFactory;
 import org.mryan.beans.support.DisposableBean;

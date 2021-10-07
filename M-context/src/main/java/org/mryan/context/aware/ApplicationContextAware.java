@@ -1,7 +1,7 @@
 package org.mryan.context.aware;
 
 import org.mryan.context.ApplicationContext;
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 import org.mryan.beans.factory.Aware;
 
 /**

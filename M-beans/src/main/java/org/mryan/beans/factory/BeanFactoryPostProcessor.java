@@ -1,6 +1,6 @@
 package org.mryan.beans.factory;
 
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 
 /**
  * @description： 为MPring提供的容器扩展机制 允许在bean实例化之前修改bean的定义信息及BeanDefinition的信息

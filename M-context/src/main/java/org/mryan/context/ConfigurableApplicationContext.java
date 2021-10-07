@@ -1,6 +1,6 @@
 package org.mryan.context;
 
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 
 /**
  * @description： ConfigurableApplicationContext

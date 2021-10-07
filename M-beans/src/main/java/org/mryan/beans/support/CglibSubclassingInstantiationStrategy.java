@@ -2,7 +2,7 @@ package org.mryan.beans.support;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 import org.mryan.beans.factory.BeanFactory;
 
 import java.lang.reflect.Constructor;

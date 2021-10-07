@@ -3,7 +3,7 @@ package org.mryan.beans.factory;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.StrUtil;
-import org.mryan.BeansException;
+import org.mryan.espression.BeansException;
 import org.mryan.beans.PropertyValue;
 import org.mryan.beans.PropertyValues;
 import org.mryan.beans.config.InstantiationAwareBeanPostProcessor;
