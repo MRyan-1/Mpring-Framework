@@ -1,7 +1,5 @@
 package org.mryan.espression;
 
-import com.sun.istack.internal.Nullable;
-
 /**
  * @description： NestedExceptionUtils
  * @Author MRyan
@@ -11,8 +9,7 @@ import com.sun.istack.internal.Nullable;
 public abstract class NestedExceptionUtils {
 
 
-    @Nullable
-    public static String buildMessage(@Nullable String message, @Nullable Throwable cause) {
+    public static String buildMessage(String message, Throwable cause) {
         if (cause == null) {
             return message;
         }
@@ -25,8 +22,7 @@ public abstract class NestedExceptionUtils {
     }
 
 
-    @Nullable
-    public static Throwable getRootCause(@Nullable Throwable original) {
+    public static Throwable getRootCause(Throwable original) {
         if (original == null) {
             return null;
         }

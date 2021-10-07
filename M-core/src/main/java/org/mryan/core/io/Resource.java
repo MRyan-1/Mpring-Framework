@@ -1,7 +1,5 @@
 package org.mryan.core.io;
 
-import com.sun.istack.internal.Nullable;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -37,11 +35,8 @@ public interface Resource extends InputStreamSource {
 
     File getFile() throws IOException;
 
-    @Nullable
     String getFilename();
 
-
     String getDescription();
-
 
 }

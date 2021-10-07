@@ -1,6 +1,5 @@
 package org.mryan.espression;
 
-import com.sun.istack.internal.Nullable;
 
 /**
  * @description： NestedRuntimeException
@@ -16,7 +15,7 @@ public abstract class NestedRuntimeException extends RuntimeException {
         super(msg);
     }
 
-    public NestedRuntimeException(@Nullable String msg, @Nullable Throwable cause) {
+    public NestedRuntimeException(String msg, Throwable cause) {
         super(msg, cause);
     }
 

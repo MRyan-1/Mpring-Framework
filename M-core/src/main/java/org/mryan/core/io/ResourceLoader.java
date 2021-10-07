@@ -1,6 +1,5 @@
 package org.mryan.core.io;
 
-import com.sun.istack.internal.Nullable;
 
 /**
  * @description： 定义资源加载器，主要应用于根据给定的资源文件地址返回对应的Resource
@@ -17,7 +16,6 @@ public interface ResourceLoader {
 
     Resource getResource(String location);
 
-    @Nullable
     ClassLoader getClassLoader();
 
 }

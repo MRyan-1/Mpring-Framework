@@ -1,8 +1,7 @@
 package org.mryan.beans.support;
 
-import com.sun.istack.internal.Nullable;
-import org.mryan.espression.BeansException;
 import org.mryan.beans.factory.BeanFactory;
+import org.mryan.espression.BeansException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -17,13 +16,13 @@ public interface InstantiationStrategy {
 
     Object instantiate(BeanDefinition beanDefinition) throws BeansException;
 
-    Object instantiate(BeanDefinition bd, @Nullable String beanName,
+    Object instantiate(BeanDefinition bd, String beanName,
                        Constructor<?> ctor, Object... args) throws BeansException;
 
 
-    Object instantiate(BeanDefinition bd, @Nullable String beanName, BeanFactory owner) throws BeansException;
+    Object instantiate(BeanDefinition bd, String beanName, BeanFactory owner) throws BeansException;
 
 
-    Object instantiate(BeanDefinition bd, @Nullable String beanName, BeanFactory owner,
-                       @Nullable Object factoryBean, Method factoryMethod, Object... args) throws BeansException;
+    Object instantiate(BeanDefinition bd, String beanName, BeanFactory owner,
+                       Object factoryBean, Method factoryMethod, Object... args) throws BeansException;
 }

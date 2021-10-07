@@ -1,6 +1,5 @@
 package org.mryan.core.io;
 
-import com.sun.istack.internal.Nullable;
 import org.mryan.support.utils.Assert;
 import org.mryan.support.utils.ClassUtils;
 
@@ -15,7 +14,6 @@ import java.net.URL;
  */
 public class DefaultResourceLoader implements ResourceLoader {
 
-    @Nullable
     private ClassLoader classLoader;
 
 
@@ -24,7 +22,7 @@ public class DefaultResourceLoader implements ResourceLoader {
     }
 
 
-    public DefaultResourceLoader(@Nullable ClassLoader classLoader) {
+    public DefaultResourceLoader(ClassLoader classLoader) {
         this.classLoader = classLoader;
     }
 

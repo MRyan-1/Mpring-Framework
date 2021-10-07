@@ -1,7 +1,5 @@
 package org.mryan.support.utils;
 
-import com.sun.istack.internal.Nullable;
-
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Collection;
@@ -114,12 +112,12 @@ public class ObjectUtils {
     }
 
 
-    public static boolean isEmpty(@Nullable Object[] array) {
+    public static boolean isEmpty(Object[] array) {
         return (array == null || array.length == 0);
     }
 
     @SuppressWarnings("rawtypes")
-    public static boolean isEmpty(@Nullable Object obj) {
+    public static boolean isEmpty(Object obj) {
         if (obj == null) {
             return true;
         }
@@ -144,7 +142,7 @@ public class ObjectUtils {
         return false;
     }
 
-    public static String nullSafeToString(@Nullable Object obj) {
+    public static String nullSafeToString(Object obj) {
         if (obj == null) {
             return NULL_STRING;
         }
@@ -183,7 +181,7 @@ public class ObjectUtils {
     }
 
 
-    public static String nullSafeToString(@Nullable Object[] array) {
+    public static String nullSafeToString(Object[] array) {
         if (array == null) {
             return NULL_STRING;
         }
@@ -205,7 +203,7 @@ public class ObjectUtils {
     }
 
 
-    public static String nullSafeToString(@Nullable boolean[] array) {
+    public static String nullSafeToString(boolean[] array) {
         if (array == null) {
             return NULL_STRING;
         }
@@ -228,7 +226,7 @@ public class ObjectUtils {
     }
 
 
-    public static String nullSafeToString(@Nullable byte[] array) {
+    public static String nullSafeToString(byte[] array) {
         if (array == null) {
             return NULL_STRING;
         }
@@ -250,7 +248,7 @@ public class ObjectUtils {
     }
 
 
-    public static String nullSafeToString(@Nullable char[] array) {
+    public static String nullSafeToString(char[] array) {
         if (array == null) {
             return NULL_STRING;
         }
@@ -272,7 +270,7 @@ public class ObjectUtils {
     }
 
 
-    public static String nullSafeToString(@Nullable double[] array) {
+    public static String nullSafeToString(double[] array) {
         if (array == null) {
             return NULL_STRING;
         }
@@ -295,7 +293,7 @@ public class ObjectUtils {
     }
 
 
-    public static String nullSafeToString(@Nullable float[] array) {
+    public static String nullSafeToString(float[] array) {
         if (array == null) {
             return NULL_STRING;
         }
@@ -318,7 +316,7 @@ public class ObjectUtils {
     }
 
 
-    public static String nullSafeToString(@Nullable int[] array) {
+    public static String nullSafeToString(int[] array) {
         if (array == null) {
             return NULL_STRING;
         }
@@ -340,7 +338,7 @@ public class ObjectUtils {
     }
 
 
-    public static String nullSafeToString(@Nullable long[] array) {
+    public static String nullSafeToString(long[] array) {
         if (array == null) {
             return NULL_STRING;
         }
@@ -362,7 +360,7 @@ public class ObjectUtils {
     }
 
 
-    public static String nullSafeToString(@Nullable short[] array) {
+    public static String nullSafeToString(short[] array) {
         if (array == null) {
             return NULL_STRING;
         }

@@ -1,7 +1,5 @@
 package org.mryan.support.utils.collection;
 
-import com.sun.istack.internal.Nullable;
-
 import java.util.Collection;
 import java.util.Map;
 
@@ -13,11 +11,11 @@ import java.util.Map;
  */
 public abstract class CollectionUtils {
 
-    public static boolean isEmpty(@Nullable Collection<?> collection) {
+    public static boolean isEmpty(Collection<?> collection) {
         return (collection == null || collection.isEmpty());
     }
 
-    public static boolean isEmpty(@Nullable Map<?, ?> map) {
+    public static boolean isEmpty(Map<?, ?> map) {
         return (map == null || map.isEmpty());
     }
 

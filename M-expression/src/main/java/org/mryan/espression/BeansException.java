@@ -1,7 +1,5 @@
 package org.mryan.espression;
 
-import com.sun.istack.internal.Nullable;
-
 /**
  * @description： BeansException
  * @Author MRyan
@@ -15,7 +13,7 @@ public class BeansException extends NestedRuntimeException {
         super(msg);
     }
 
-    public BeansException(@Nullable String msg, @Nullable Throwable cause) {
+    public BeansException(String msg, Throwable cause) {
         super(msg, cause);
     }
 

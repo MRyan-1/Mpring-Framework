@@ -1,6 +1,5 @@
 package org.mryan.beans.factory;
 
-import com.sun.istack.internal.Nullable;
 import org.mryan.espression.BeansException;
 
 /**
@@ -19,7 +18,6 @@ public interface BeanPostProcessor {
      * @return
      * @throws BeansException
      */
-    @Nullable
     default Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         return bean;
     }
@@ -33,7 +31,6 @@ public interface BeanPostProcessor {
      * @return
      * @throws BeansException
      */
-    @Nullable
     default Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         return bean;
     }

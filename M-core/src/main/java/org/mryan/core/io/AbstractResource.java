@@ -1,6 +1,5 @@
 package org.mryan.core.io;
 
-import com.sun.istack.internal.Nullable;
 import org.mryan.espression.NestedIOException;
 import org.mryan.support.utils.ResourceUtils;
 
@@ -84,7 +83,6 @@ public abstract class AbstractResource implements Resource {
 
 
     @Override
-    @Nullable
     public String getFilename() {
         return null;
     }

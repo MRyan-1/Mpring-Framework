@@ -1,6 +1,5 @@
 package org.mryan.espression;
 
-import com.sun.istack.internal.Nullable;
 
 import java.io.IOException;
 
@@ -20,12 +19,11 @@ public class NestedIOException extends IOException {
         super(msg);
     }
 
-    public NestedIOException(@Nullable String msg, @Nullable Throwable cause) {
+    public NestedIOException(String msg, Throwable cause) {
         super(msg, cause);
     }
 
     @Override
-    @Nullable
     public String getMessage() {
         return NestedExceptionUtils.buildMessage(super.getMessage(), getCause());
     }

@@ -1,6 +1,5 @@
 package org.mryan.core.io;
 
-import com.sun.istack.internal.Nullable;
 import org.mryan.support.utils.Assert;
 import org.mryan.support.utils.StringUtils;
 
@@ -23,7 +22,6 @@ public class FileSystemResource implements Resource {
 
     private final String path;
 
-    @Nullable
     private final File file;
 
     private final Path filePath;

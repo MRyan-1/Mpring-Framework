@@ -1,7 +1,5 @@
 package org.mryan.support.utils;
 
-import com.sun.istack.internal.Nullable;
-
 
 /**
  * @description： 断言
@@ -17,13 +15,13 @@ public abstract class Assert {
      * @param object
      * @param message
      */
-    public static void notNull(@Nullable Object object, String message) {
+    public static void notNull(Object object, String message) {
         if (object == null) {
             throw new IllegalArgumentException(message);
         }
     }
 
-    public static void hasText(@Nullable String text, String message) {
+    public static void hasText(String text, String message) {
         if (!StringUtils.hasText(text)) {
             throw new IllegalArgumentException(message);
         }
