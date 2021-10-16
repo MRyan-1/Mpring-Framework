@@ -4,10 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean class="org.mryan.context.test.event.ContextRefreshedEventListener"/>
+    <bean class="cn.wormholestack.mpring.context.test.event.ContextRefreshedEventListener"/>
 
-    <bean class="org.mryan.context.test.event.CustomEventListener"/>
+    <bean class="cn.wormholestack.mpring.context.test.event.CustomEventListener"/>
 
-    <bean class="org.mryan.context.test.event.ContextClosedEventListener"/>
+    <bean class="cn.wormholestack.mpring.context.test.event.ContextClosedEventListener"/>
 
 </beans>

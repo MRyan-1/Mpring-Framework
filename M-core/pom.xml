@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>Mpring-parent</artifactId>
-        <groupId>org.mryan.Mpring</groupId>
+        <groupId>cn.wormholestack.mpring</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
@@ -21,12 +21,12 @@
     <dependencies>
         <!--模块间引用关系-->
         <dependency>
-            <groupId>org.mryan.Mpring</groupId>
+            <groupId>cn.wormholestack.mpring</groupId>
             <artifactId>M-expression</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.mryan.Mpring</groupId>
+            <groupId>cn.wormholestack.mpring</groupId>
             <artifactId>M-support</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
