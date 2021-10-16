@@ -4,15 +4,15 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
- <!--   <bean id="userDao" class="org.mryan.context.test.beans.UserDao"/>-->
-    <bean id="userDao" class="org.mryan.context.test.beans.UserDao" init-method="initMethod" destroy-method="destroyMethod"/>
-    <bean id="userService" class="org.mryan.context.test.beans.UserService" scope="prototype">
+ <!--   <bean id="userDao" class="cn.wormholestack.mpring.context.test.beans.UserDao"/>-->
+    <bean id="userDao" class="cn.wormholestack.mpring.context.test.beans.UserDao" init-method="initMethod" destroy-method="destroyMethod"/>
+    <bean id="userService" class="cn.wormholestack.mpring.context.test.beans.UserService" scope="prototype">
         <property name="name" value="MPring"/>
         <property name="userDao" ref="userDao"/>
     </bean>
 
-<!--    <bean class="org.mryan.context.test.processor.MyBeanPostProcessor"/>
-    <bean class="org.mryan.context.test.processor.MyBeanFactoryPostProcessor"/>-->
-    <bean id="proxyUserDao" class="org.mryan.context.test.beans.ProxyBeanFactory"/>
+<!--    <bean class="cn.wormholestack.mpring.context.test.processor.MyBeanPostProcessor"/>
+    <bean class="cn.wormholestack.mpring.context.test.processor.MyBeanFactoryPostProcessor"/>-->
+    <bean id="proxyUserDao" class="cn.wormholestack.mpring.context.test.beans.ProxyBeanFactory"/>
 
 </beans>
